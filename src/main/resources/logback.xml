@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false" scan="true" scanPeriod="60 seconds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<configuration debug="false" scan="true" scanPeriod="60 seconds"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd">
 
+	<!-- ログ出力フォーマット -->
 	<property name="FORMAT"
-		value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+		value="%-30([%d{yy/MM/dd HH:mm:ss}]\\(%thread\\)) %-40(%-7([%level]) %logger{15} %M\\(\\)) - %msg%n" />
 
+	<!-- 出力ディレクトリ -->
+	<property name="DEBUG_LOG_FILE" value="logs/debug/debug_%d{yyyyMMdd}.log" />
+
+	<!-- DEBUG ログ -->
+	<appender name="DEBUG_LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<prudent>true</prudent>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${DEBUG_LOG_FILE}</fileNamePattern>
+			<maxHistory>10</maxHistory>
+			<cleanHistoryOnStart>false</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${FORMAT}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- SIFT ログ -->
+	<appender name="SIFT_LOG" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
+			<key>user</key>
+			<defaultValue>default</defaultValue>
+		</discriminator>
+		<sift>
+			<appender name="${user}_LOG"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<prudent>true</prudent>
+				<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+					<level>DEB</level>
+				</filter>
+				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+					<fileNamePattern>logs/sift/${user}_%d{yyyyMMdd}.log</fileNamePattern>
+					<maxHistory>10</maxHistory>
+					<cleanHistoryOnStart>false</cleanHistoryOnStart>
+				</rollingPolicy>
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<pattern>${FORMAT}</pattern>
+				</encoder>
+			</appender>
+		</sift>
+	</appender>
+
+	<!-- コンソール出力 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ALL</level>
+		</filter>
 		<encoder>
 			<pattern>${FORMAT}</pattern>
 		</encoder>
@@ -15,6 +66,8 @@
 	<logger name="org.jboss" level="ERROR" />
 
 	<root level="DEBUG">
+		<appender-ref ref="SIFT_LOG" />
+		<appender-ref ref="DEBUG_LOG" />
 		<appender-ref ref="STDOUT" />
 	</root>
 
