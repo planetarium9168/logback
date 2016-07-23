@@ -11,4 +11,8 @@
 		<exclude
 			name="org.jboss.weld.servlet.spi.helpers.AcceptingHttpContextActivationFilter"></exclude>
 	</scan>
+	
+	<interceptors>
+	<class>sh.common.interceptor.SiftingInterceptor</class>
+	</interceptors>
 </beans>

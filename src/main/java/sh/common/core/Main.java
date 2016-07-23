@@ -5,16 +5,15 @@ import javax.inject.Inject;
 import org.jboss.weld.environment.se.Weld;
 
 import sh.common.core.Main;
-import sh.common.test.InjectTest;
 
 public class Main {
 	
 	/** Main */
 	private static Main main;
 	
-	/** Injectテスト */
+	/** コントローラ */
 	@Inject
-	private InjectTest injectTest;
+	private Controller controller;
 	
 	/**
 	 * 起動メソッド
@@ -44,7 +43,7 @@ public class Main {
 	 * 実行
 	 */
 	private void run () {
-		injectTest.hello();
+		controller.execute();
 	}
 
 }
