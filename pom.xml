@@ -103,7 +103,14 @@
 
 	<!-- 依存定義 -->
 	<dependencies>
-
+		
+		<!-- Framework -->
+		<dependency>
+			<groupId>sh.common</groupId>
+			<artifactId>Framework</artifactId>
+			<version>0.001.000-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
