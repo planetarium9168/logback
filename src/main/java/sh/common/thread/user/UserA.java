@@ -8,14 +8,13 @@ import sh.common.interceptor.SiftingInterceptorBinding;
 
 public class UserA extends Thread {
 
-	private Logger LOGGER;
+	private Logger LOGGER = LoggerFactory.getLogger(UserA.class);
 	
 	private static String USER_NAME = UserA.class.getSimpleName();
 	
 	@Override
 	public void run() {
-		
-		LOGGER = LoggerFactory.getLogger(UserA.class);
+		this.setName(USER_NAME);
 		setUserNameToMdc();
 		outlog();
 		
