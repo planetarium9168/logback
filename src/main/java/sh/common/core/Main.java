@@ -1,10 +1,14 @@
 package sh.common.core;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import org.jboss.weld.environment.se.Weld;
+import org.slf4j.Logger;
 
 import sh.common.core.Main;
+import sh.common.util.LoggerUtil;
 
 public class Main {
 	
@@ -21,6 +25,9 @@ public class Main {
 	 * @param args 起動引数
 	 */
 	public static void main(String[] args) {
+		// ログフォルダ削除
+		LoggerUtil.deleteLogFolder();
+		
 		// 実行
 		getInstance().run();
 	}

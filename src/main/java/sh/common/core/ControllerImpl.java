@@ -6,31 +6,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sh.common.interceptor.SiftingInterceptorBinding;
+import sh.common.logger.LoggingTester;
 import sh.common.thread.user.UserA;
 import sh.common.thread.user.UserB;
+import sh.common.util.LoggerUtil;
 
-@SiftingInterceptorBinding
 public class ControllerImpl implements Controller {
-	
+
 	/** ロガー */
 	private Logger LOGGER = LoggerFactory.getLogger(ControllerImpl.class);
-	
+
+	/** ログテスター */
 	@Inject
-	private UserA userA;
-	
-	@Inject
-	private UserB userB;
-	
+	private LoggingTester loggingTester;
+
 	@Override
 	public void execute() {
 		
-		LOGGER.info("logbackのテストを開始します。");
-		
-		userA.start();
-		
-		userB.start();
-		
-		LOGGER.info("logbackのテストを終了します。");
+		LoggerUtil.line(LOGGER, "logbackのテストを開始します。");
+
+		loggingTester.normalLogTest();
+		loggingTester.levelLogTest();
+		loggingTester.loggerLogTest();
+		loggingTester.siftUserLogTest();
+		loggingTester.siftClassLogTest();
+
+		LoggerUtil.line(LOGGER, "logbackのテストを終了します。");
 
 	}
 
