@@ -7,6 +7,10 @@ import javax.interceptor.InvocationContext;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 
+/**
+ * classによる振り分けテスト用のインターセプターです。
+ * @author sh
+ */
 @Interceptor
 @SiftingInterceptorBinding
 public class SiftingInterceptor extends AbstractInterceptor {

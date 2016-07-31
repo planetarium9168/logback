@@ -1,9 +1,9 @@
-package sh.common.logger;
+package sh.common.tester;
 
 import sh.common.TestType;
 
 /**
- * ログテストを定義するインタフェース
+ * ログテスターインタフェース
  * 
  * @author sh
  */

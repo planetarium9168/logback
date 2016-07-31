@@ -76,6 +76,11 @@ public class Main {
 		controller.execute(type);
 	}
 
+	/**
+	 * TestTypeに定義されたlogback.xml配置ディレクトリをクラスパスに追加します。
+	 * 
+	 * @param type
+	 */
 	private static void setClassPath(TestType type) {
 		if (type != null && !StringUtils.isEmpty(type.getPath())) {
 			try {
@@ -88,6 +93,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * 引数からTestTypeを取得します
+	 * 
+	 * @param args
+	 * @return
+	 */
 	private static TestType convert(String[] args) {
 		if (CollectionUtils.sizeIsEmpty(args)) {
 			return null;

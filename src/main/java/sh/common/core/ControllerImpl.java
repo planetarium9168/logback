@@ -15,11 +15,15 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 import sh.common.TestType;
 import sh.common.interceptor.SiftingInterceptorBinding;
-import sh.common.logger.LoggingTester;
+import sh.common.tester.LoggingTester;
 import sh.common.thread.user.UserA;
 import sh.common.thread.user.UserB;
 import sh.common.util.LoggerUtil;
 
+/**
+ * コントローラ実装
+ * @author sh
+ */
 public class ControllerImpl implements Controller {
 
 	/** ロガー */

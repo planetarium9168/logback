@@ -13,6 +13,10 @@ public class ClassSiftService2 {
 	public void log() {
 		
 		LOGGER.info("ClassSiftService2のログです。");
+		LOGGER.debug("DEBUG");
+		LOGGER.info("INFO");
+		LOGGER.warn("WARN");
+		LOGGER.error("ERROR");
 		
 	}
 	

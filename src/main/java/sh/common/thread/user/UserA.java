@@ -17,7 +17,6 @@ public class UserA extends Thread {
 		this.setName(USER_NAME);
 		setUserNameToMdc();
 		outlog();
-		
 	}
 
 	private void setUserNameToMdc() {
@@ -27,7 +26,11 @@ public class UserA extends Thread {
 	
 	private void outlog () {
 		
-		LOGGER.debug("I'm " + USER_NAME);
+		LOGGER.debug(USER_NAME + "のログです。");
+		LOGGER.debug("DEBUG");
+		LOGGER.info("INFO");
+		LOGGER.warn("WARN");
+		LOGGER.error("ERROR");
 		
 	}
 

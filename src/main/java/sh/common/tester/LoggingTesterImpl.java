@@ -1,9 +1,13 @@
-package sh.common.logger;
+package sh.common.tester;
 
 import java.util.Date;
 
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.jboss.weld.bean.builtin.BeanManagerBean;
+import org.jboss.weld.manager.BeanManagerImpl;
+import org.jboss.weld.manager.BeanManagers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,16 +63,18 @@ public class LoggingTesterImpl implements LoggingTester {
 	}
 
 	public void normalLogTest() {
-
+		LOGGER.info("通常のログ出力テストです。");
+		LOGGER.info("全てのログレベルが記録されます。");
 		LOGGER.debug("DEBUG");
 		LOGGER.info("INFO");
 		LOGGER.warn("WARN");
 		LOGGER.error("ERROR");
-
 	}
 
 	public void levelLogTest() {
-
+		LOGGER.info("アペンダーのレベルを制限した出力テストです。");
+		LOGGER.info("DEBUGレベルのログは記録されません。");
+		LOGGER.info("※コンソールには出力されます。");
 		LOGGER.debug("DEBUG");
 		LOGGER.info("INFO");
 		LOGGER.warn("WARN");
@@ -77,14 +83,15 @@ public class LoggingTesterImpl implements LoggingTester {
 	}
 
 	public void loggerLogTest() {
-
+		LOGGER.info("ロガー別のレベル制限テストです。");
+		LOGGER.info("それぞれ設定されたログレベル以上のログのみ記録されます。");
 		lservice1.log();
 		lservice2.log();
-
 	}
 
 	public void siftUserLogTest() {
-
+		LOGGER.info("ユーザー別の振り分けテストです。");
+		LOGGER.info("Webアプリケーションであれば、リクエスト毎(スレッド)のログ出力が可能です。");
 		UserA userA = new UserA();
 		UserB userB = new UserB();
 
@@ -107,6 +114,8 @@ public class LoggingTesterImpl implements LoggingTester {
 	}
 
 	public void siftClassLogTest() {
+		LOGGER.info("クラス別の振り分けテストです。");
+		LOGGER.info("※今回はインターセプターにより振り分け値を設定しています。");
 		cservice1.log();
 		cservice2.log();
 	}

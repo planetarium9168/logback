@@ -27,7 +27,11 @@ public class UserB extends Thread {
 	
 	private void outlog () {
 		
-		LOGGER.debug("I'm " + USER_NAME);
+		LOGGER.debug(USER_NAME + "のログです。");
+		LOGGER.debug("DEBUG");
+		LOGGER.info("INFO");
+		LOGGER.warn("WARN");
+		LOGGER.error("ERROR");
 		
 	}
 

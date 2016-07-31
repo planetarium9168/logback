@@ -9,49 +9,9 @@
 
 	<!-- 出力ディレクトリ -->
 	<property name="DIR_BASE" value="logs" />
-	<property name="DIR_NORMAL" value="/normal" />
-	<property name="DIR_LEVEL" value="/level" />
 	<property name="DIR_LOGGER" value="/logger" />
-	<property name="DIR_SIFT_USER" value="/sift/user" />
-	<property name="DIR_SIFT_CLASS" value="/sift/class" />
 	<property name="LOG_FILE" value="/%d{yyyyMMdd}.log" />
-	
-	<property name="DEBUG_LOG_FILE" value="logs/debug/debug_%d{yyyyMMdd}.log" />
 
-	<!-- NORMAL -->
-	<appender name="NORMAL_LOG"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<prudent>true</prudent>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>DEBUG</level>
-		</filter>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${DIR_BASE}${DIR_NORMAL}${LOG_FILE}</fileNamePattern>
-			<maxHistory>10</maxHistory>
-			<cleanHistoryOnStart>false</cleanHistoryOnStart>
-		</rollingPolicy>
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>${FORMAT}</pattern>
-		</encoder>
-	</appender>
-	
-	<!-- LEVEL -->
-	<appender name="LEVEL_LOG"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<prudent>true</prudent>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
-		</filter>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${DIR_BASE}${DIR_LEVEL}${LOG_FILE}</fileNamePattern>
-			<maxHistory>10</maxHistory>
-			<cleanHistoryOnStart>false</cleanHistoryOnStart>
-		</rollingPolicy>
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>${FORMAT}</pattern>
-		</encoder>
-	</appender>
-	
 	<!-- LOGGER -->
 	<appender name="LOGGER_LOG"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -69,56 +29,6 @@
 		</encoder>
 	</appender>
 
-	<!-- SIFT ログ -->
-	<appender name="SIFT_USER_LOG" class="ch.qos.logback.classic.sift.SiftingAppender">
-		<discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
-			<key>user</key>
-			<defaultValue>default</defaultValue>
-		</discriminator>
-		<sift>
-			<appender name="${user}_LOG"
-				class="ch.qos.logback.core.rolling.RollingFileAppender">
-				<prudent>true</prudent>
-				<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-					<level>DEBUG</level>
-				</filter>
-				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-					<fileNamePattern>logs/sift/user/${user}_%d{yyyyMMdd}.log</fileNamePattern>
-					<maxHistory>10</maxHistory>
-					<cleanHistoryOnStart>false</cleanHistoryOnStart>
-				</rollingPolicy>
-				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-					<pattern>${FORMAT}</pattern>
-				</encoder>
-			</appender>
-		</sift>
-	</appender>
-
-	<!-- SIFT ログ -->
-	<appender name="SIFT_CLASS_LOG" class="ch.qos.logback.classic.sift.SiftingAppender">
-		<discriminator class="ch.qos.logback.classic.sift.MDCBasedDiscriminator">
-			<key>class</key>
-			<defaultValue>default</defaultValue>
-		</discriminator>
-		<sift>
-			<appender name="${class}_LOG"
-				class="ch.qos.logback.core.rolling.RollingFileAppender">
-				<prudent>true</prudent>
-				<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-					<level>DEBUG</level>
-				</filter>
-				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-					<fileNamePattern>logs/sift/class/${class}_%d{yyyyMMdd}.log</fileNamePattern>
-					<maxHistory>10</maxHistory>
-					<cleanHistoryOnStart>false</cleanHistoryOnStart>
-				</rollingPolicy>
-				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-					<pattern>${FORMAT}</pattern>
-				</encoder>
-			</appender>
-		</sift>
-	</appender>
-
 	<!-- コンソール出力 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -132,19 +42,14 @@
 	<!-- Weldのログ抑制 -->
 	<logger name="org.jboss" level="ERROR" />
 	
-	<logger name="sh.common.service.LimitedLoggerService1" level="INFO">
-		<appender-ref ref="LOGGER_LOG" />
-	</logger>
+	<!-- ロガーを指定したレベル制限 -->
+	<logger name="sh.common.service.LimitedLoggerService1" level="INFO" />
 	
-	<logger name="sh.common.service.LimitedLoggerService2" level="WARN">
-		<appender-ref ref="LOGGER_LOG" />
-	</logger>
+	<!-- ロガーを指定したレベル制限 -->
+	<logger name="sh.common.service.LimitedLoggerService2" level="WARN" />
 
 	<root level="DEBUG">
-		<appender-ref ref="NORMAL_LOG" />
-		<appender-ref ref="LEVEL_LOG" />
-		<appender-ref ref="SIFT_USER_LOG" />
-		<appender-ref ref="SIFT_CLASS_LOG" />
+		<appender-ref ref="LOGGER_LOG" />
 		<appender-ref ref="STDOUT" />
 	</root>
 
