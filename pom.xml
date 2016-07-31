@@ -13,14 +13,14 @@
 
 	<profiles>
 		<!-- 依存ライブラリをjarに含める(デフォルト) -->
-		<!-- goals    : clean compile -DskipTests=true -->
+		<!-- goals : clean compile -DskipTests=true -->
 		<!-- profiles : assembly or [empty] -->
 		<profile>
 			<id>assembly</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			
+
 			<build>
 				<plugins>
 					<plugin>
@@ -49,9 +49,9 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<!-- 通常のjarをビルド -->
-		<!-- goals    : clean compile -DskipTests=true -->
+		<!-- goals : clean compile -DskipTests=true -->
 		<!-- profiles : default -->
 		<profile>
 			<id>default</id>
@@ -103,7 +103,7 @@
 
 	<!-- 依存定義 -->
 	<dependencies>
-		
+
 		<!-- slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -123,6 +123,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
 		</dependency>
 
 		<!-- weld se -->
